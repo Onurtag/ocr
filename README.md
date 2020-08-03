@@ -17,14 +17,20 @@ Execution: Copy any files you need to convert in the same folder with the script
 -> Filetypes supported: pdf, jpg, png, gif, bmp, doc  
 
 You can also call the script from another folder to ocr files that are in that folder.  
-
-**Commandline arguments:**  
-- **--file=path\to\file.png** : Allows you to specify a file to ocr.  
-- **--copy** : OCR output will be copied to clipboard  
-  
   
 -> On first run it will open your browser to verify permisions. If you see "This app isn't verified" ... click on Advanced and (IF YOU TRUST ME) click on Go to Quickstart (unsafe). Then click Allow and Allow. You can close the browser tab. The execution begins.  
   
 The script will list the supported files, upload each one to Google Drive and export/download the text version of them.  
   
 Example: original.jpg -> the exported will be original_jpg_text.txt, original.pdf -> the exported will be original_pdf_text.txt etc  
+
+
+**Commandline arguments:**  
+- **--file="C:\path\to\file.png"** : Allows you to specify a file to OCR.  
+- **--copy** : OCR output will be copied to clipboard  
+
+**Example usage with ShareX:**  
+In the Actions menu  
+- **Path:** C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe   
+- **Arguments:** python "C:\your\path\to\ocr.py" --copy --file=%input
+- **Hidden Window:** Enabled
