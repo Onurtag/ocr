@@ -1,0 +1,6 @@
+httplib2
+apiclient
+google-api-python-client >= 1.10.0
+oauth2client
+argparse
+pyperclip

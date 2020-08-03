@@ -1,22 +1,20 @@
 # ocr  
 Simple OCR script that uses Google Drive's OCR capabilities.  
-To make it work do the following:  
+
+To make it work, install python, extract this repo to a folder and then do the following:  
   
 1. Visit https://developers.google.com/drive/api/v3/quickstart/python  
 2. Click Enable The Drive API  
 3. Login with your Google account  
 4. Click "Download Client configuration"  
 5. Copy the credentials.json to the same folder with ocr.py  
-6. install the following modules  
- a. httplib2 (In windows 10 I executed python -m pip install httplib2 --user)  
- b. apiclient (Win10: python -m pip install apiclient --user)  
- c. Upgraded google-api-python-client (win10: python -m pip install --upgrade google-api-python-client --user)  
- d. oauth2client (win10: python -m pip install oauth2client --user)  
-  
-Execution: Copy any files you need to convert in the same folder with the script and type "python ocr.py".   
--> Filetypes supported: pdf, jpg, png, gif, bmp, doc  
+6. install the requirements with the following console command  
+```  
+pip install -r requirements.txt  
+```  
 
-You can also call the script from another folder to ocr files that are in that folder.  
+**Execution:** Copy any files you need to convert in the same folder with the script and run "python ocr.py" in your preferred commandline (powershell/cmd/etc). You can also call the script from another folder to ocr files that are in that folder.  
+-> Filetypes supported: pdf, jpg, png, gif, bmp, doc  
   
 -> On first run it will open your browser to verify permisions. If you see "This app isn't verified" ... click on Advanced and (IF YOU TRUST ME) click on Go to Quickstart (unsafe). Then click Allow and Allow. You can close the browser tab. The execution begins.  
   
@@ -24,13 +22,13 @@ The script will list the supported files, upload each one to Google Drive and ex
   
 Example: original.jpg -> the exported will be original_jpg_text.txt, original.pdf -> the exported will be original_pdf_text.txt etc  
 
-
 **Commandline arguments:**  
-- **--file="C:\path\to\file.png"** : Allows you to specify a file to OCR.  
-- **--copy** : OCR output will be copied to clipboard  
+- **--file="C:\path\to\file.png"** : Allows you to specify a single file to OCR.  
+- **--copy** : OCR output will be automatically copied to clipboard  
 
 **Example usage with ShareX:**  
-In the Actions menu  
-- **Path:** C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe   
-- **Arguments:** python "C:\your\path\to\ocr.py" --copy --file=%input
-- **Hidden Window:** Enabled
+Add the following action  
+- **Path:** C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe  
+- **Arguments:** python "C:\your\path\to\ocr.py" --copy --file=%input  
+- **Hidden Window:** Enabled 
+
