@@ -86,16 +86,15 @@ def ocr(input, input_filetype, output):
     print("Output saved to " + output + ".")
     # Uncomment the following if you want to show the exported file's contents
     f = open(output, 'r', encoding="UTF-8")
-    # Read file contents and remove the extra underlines
+    # Read file contents and remove the extra underlines at the start
     contents = f.read().replace("________________\n", "", 1)
-    #pretty print file contents
+    # Pretty print file contents
     print("\n_________________________ File Name _____________________________\n")
     print(output)
     print("\n_________________________ File Contents _________________________\n")
     print(contents)
     print("\n_________________________________________________________________\n")
-    if argcopy != None:
-        # Copy to clipboard without the extra underlines
+    if argcopy == True:
         pyperclip.copy(contents)
 
 
