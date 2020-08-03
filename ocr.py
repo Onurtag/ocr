@@ -6,14 +6,33 @@ import httplib2
 from apiclient import discovery
 from apiclient.http import MediaFileUpload, MediaIoBaseDownload
 from oauth2client import file, client, tools
+import argparse, pyperclip
+from pathlib import Path
+
+
+argfile = None
+argcopy = None
+parser = argparse.ArgumentParser(
+    prog="ocr",
+    usage='%(prog)s option1=value1"',)
+parser.add_argument("--file", help="OCR the specified file instead of current folder.")
+parser.add_argument("--copy", help="Copy OCR output into clipboard", action="store_true")
+args = parser.parse_args()
+if args.file != None:
+    argfile = args.file
+if args.copy != None:
+    argcopy = args.copy
+
 
 SCOPES = ("https://www.googleapis.com/auth/drive")
 
 # Authentication
-store = file.Storage('token.json')
+#detect/save credentials in the script path so we can run the script in other folders
+scriptpath = os.path.dirname(os.path.abspath(__file__))
+store = file.Storage(scriptpath + '\\token.json')
 creds = store.get()
 if not creds or creds.invalid:
-    flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
+    flow = client.flow_from_clientsecrets(scriptpath + '\\credentials.json', SCOPES)
     creds = tools.run_flow(flow, store)
 
 http = creds.authorize(httplib2.Http())
@@ -34,12 +53,14 @@ def get_file_names():
                 file_names[file_type].append(x.replace("." + file_type,""))
     return file_names
 
-# print a the file lists by type
-files = get_file_names()
-for type in files:
-    print(type)
-    for file in files[type]:
-        print("\t"+ file)
+
+if argfile == None:
+    # print a the file lists by type
+    files = get_file_names()
+    for type in files:
+        print(type)
+        for file in files[type]:
+            print("Type: " + type + "\tFile: "+ file)
 
 
 def ocr(input, input_filetype, output):
@@ -64,16 +85,30 @@ def ocr(input, input_filetype, output):
     service.files().delete(fileId=file["id"]).execute()
     print("Output saved to " + output + ".")
     # Uncomment the following if you want to show the exported file's contents
-    # f = open(output, 'r')
-    # contents = f.read()
-    # print(contents)
+    f = open(output, 'r', encoding="UTF-8")
+    # Read file contents and remove the extra underlines
+    contents = f.read().replace("________________\n", "", 1)
+    #pretty print file contents
+    print("\n_________________________ File Name _____________________________\n")
+    print(output)
+    print("\n_________________________ File Contents _________________________\n")
+    print(contents)
+    print("\n_________________________________________________________________\n")
+    if argcopy != None:
+        # Copy to clipboard without the extra underlines
+        pyperclip.copy(contents)
 
-# Search for the files
-files = get_file_names()
 
-for file_type in files.keys():
-    # Convert files for every file type
-    print("Converting: ", file_type)
-    for file in files[file_type]:
-        ocr(file + "." + file_type, file_type, file + "_" + file_type + "_text.txt")
+if argfile == None:
+    # Search for the files
+    files = get_file_names()
 
+    for file_type in files.keys():
+        # Convert files for every file type
+        #print("Converting: ", file_type)
+        for file in files[file_type]:
+            ocr(file + "." + file_type, file_type, file + "_" + file_type + "_text.txt")
+else:
+    file_typedot = Path(argfile).suffix
+    file_type = file_typedot[1:]
+    ocr(argfile, file_type, argfile + "_text.txt")
