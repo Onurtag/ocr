@@ -1,4 +1,5 @@
 from __future__ import print_function
+import argparse, pyperclip
 import fnmatch
 import io
 import os
@@ -6,7 +7,6 @@ import httplib2
 from apiclient import discovery
 from apiclient.http import MediaFileUpload, MediaIoBaseDownload
 from oauth2client import file, client, tools
-import argparse, pyperclip
 from pathlib import Path
 
 
@@ -33,7 +33,8 @@ store = file.Storage(scriptpath + '\\token.json')
 creds = store.get()
 if not creds or creds.invalid:
     flow = client.flow_from_clientsecrets(scriptpath + '\\credentials.json', SCOPES)
-    creds = tools.run_flow(flow, store)
+    flags = tools.argparser.parse_args(args=[])
+    creds = tools.run_flow(flow, store, flags)
 
 http = creds.authorize(httplib2.Http())
 service = discovery.build("drive", "v3", http=http)
