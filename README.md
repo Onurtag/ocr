@@ -3,7 +3,7 @@ Simple OCR script that uses Google Drive's OCR capabilities.
 
 To make it work, install python, extract this repo to a folder and then do the following:  
   
-1. Visit https://developers.google.com/drive/api/v3/quickstart/python  
+1. Visit ```https://developers.google.com/drive/api/v3/quickstart/python```  
 2. Click Enable The Drive API  
 3. Login with your Google account  
 4. Click "Download Client configuration"  
