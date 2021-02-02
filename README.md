@@ -8,10 +8,8 @@ To make it work, install python, extract this repo to a folder and then do the f
 3. Login with your Google account  
 4. Click "Download Client configuration"  
 5. Copy the credentials.json to the same folder with ocr.py  
-6. install the requirements with the following console command  
-```  
-pip install -r requirements.txt  
-```  
+6. install the requirements with the following command:  
+```pip install -r requirements.txt```  
 
 ### **Commandline arguments:**  
 - **--file="C:\path\to\file.png"** : Allows you to specify a single file to OCR.  
