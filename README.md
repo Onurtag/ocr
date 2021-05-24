@@ -18,7 +18,7 @@ To make it work, install python, extract this repo to a folder and then do the f
 ### **Example usage with ShareX:**  
 Add the following action  
 - **Path:** C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe  
-- **Arguments:** python "C:\your\path\to\ocr.py" --copy --file=%input  
+- **Arguments:** python "C:\your\path\to\ocr.py" --copy --file=$input  
 - **Hidden Window:** Enabled 
 
 ❗ *On first run it will open your browser to verify permissions. If you see "This app isn't verified" ... click on Advanced and click on Go to Quickstart (unsafe). Then click Allow and Allow. You can close the browser tab. The execution begins.*  
